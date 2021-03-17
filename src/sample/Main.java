@@ -28,6 +28,10 @@ public class Main extends Application {
 
         QuickSort newQuickSort = new QuickSort();
         MergeSort newMergeSort = new MergeSort();
+        SelectionSort newSelectionSort = new SelectionSort();
+        InsertionSort newInsertionSort = new InsertionSort();
+        BubbleSort newBubbleSort = new BubbleSort();
+
 
         TabPane tabPane = new TabPane();
 
@@ -210,7 +214,7 @@ public class Main extends Application {
                     int myInt = Integer.parseInt(text);
                     unSorted[i] = myInt;
                 }
-                newMergeSort.merge_srt(unSorted);
+                BubbleSort.bubble_srt(unSorted);
             }
         });
 
@@ -252,7 +256,7 @@ public class Main extends Application {
                     int myInt = Integer.parseInt(text);
                     unSorted[i] = myInt;
                 }
-                newMergeSort.merge_srt(unSorted);
+                newSelectionSort.SelectionSrt(unSorted);
             }
         });
 
@@ -294,7 +298,7 @@ public class Main extends Application {
                     int myInt = Integer.parseInt(text);
                     unSorted[i] = myInt;
                 }
-                newMergeSort.merge_srt(unSorted);
+                newInsertionSort.InsertionSrt(unSorted);
             }
         });
 
@@ -337,6 +341,8 @@ public class Main extends Application {
                     unSorted[i] = myInt;
                 }
                 newMergeSort.merge_srt(unSorted);
+
+                ArrayMethods.printArray(unSorted);
             }
         });
 
