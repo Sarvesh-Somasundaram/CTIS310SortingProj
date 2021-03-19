@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 
 import java.util.Random;
 
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -198,12 +199,16 @@ public class Main extends Application {
         introTab.setContent(intropane);
 
         //Bubble Tab Content
+        Label bubbleLabel = new Label();
+        bubbleLabel.setMinSize(150, 400);
+        bubbleLabel.setPadding(new Insets(0, 0, 0, 550));
         FlowPane bubblepane = new FlowPane();
         HBox bubblebuttons = new HBox(bubblebtn, bubblebtn1, bubblebtn2);
         HBox Hbubble = new HBox(bubblefield1, bubblefield2, bubblefield3, bubblefield4, bubblefield5, bubblefield6, bubblefield7, bubblefield8, bubblefield9, bubblefield10);
         Hbubble.setPadding(new Insets(100, 0, 0, 0));
         bubblebuttons.setPadding(new Insets(50, 0, 0, 450));
-        bubblepane.getChildren().addAll(Hbubble, bubblebuttons);
+        VBox bubbleVbox = new VBox(Hbubble, bubblebuttons, bubbleLabel);
+        bubblepane.getChildren().addAll(bubbleVbox);
         bubbleTab.setContent(bubblepane);
 
         bubblebtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -214,7 +219,8 @@ public class Main extends Application {
                     int myInt = Integer.parseInt(text);
                     unSorted[i] = myInt;
                 }
-                BubbleSort.bubble_srt(unSorted);
+                String bubbleSortVisualization = BubbleSort.bubble_srt(unSorted);
+                bubbleLabel.setText(bubbleSortVisualization);
             }
         });
 

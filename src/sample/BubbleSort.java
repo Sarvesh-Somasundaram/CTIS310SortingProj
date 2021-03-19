@@ -3,11 +3,12 @@ package sample;
 
 public class BubbleSort {
     
-    public static int [] bubble_srt (int array[])
+    public static String bubble_srt (int array[])
     {
         int inputLength = array.length;
         int temp;
         boolean is_sorted;
+        String finalString = "";
         
         for (int i = 0; i < inputLength; i++){
             is_sorted = true;
@@ -19,11 +20,14 @@ public class BubbleSort {
                     is_sorted = false;
                 }
             }
-            //is sorted? then break it, aavoid useless loop
+            //is sorted? then break it, avoid useless loop
             if (is_sorted) break;
             ArrayMethods.printArray(array);
+            String tempArray = ArrayMethods.arrayToString(array);
+            finalString = finalString + "Step " + (i+1) + ": " + tempArray + "\n\n";
+
         }
-        return array;
+        return finalString;
     }
     
 }
