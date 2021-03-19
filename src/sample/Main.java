@@ -1,5 +1,8 @@
 package sample;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import javafx.application.Application;
 
 import javafx.event.ActionEvent;
@@ -7,13 +10,14 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 
 import java.util.Random;
 
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -22,7 +26,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws FileNotFoundException {
 
         int[] unSorted = new int[10];
         final TextField[][] arrayFields = {new TextField[10]};
@@ -230,6 +234,7 @@ public class Main extends Application {
                 arrayFields[0] = Hbubble.getChildren().toArray(new TextField[0]);
                 for (int i = 0; i < 10; i++) {
                     arrayFields[0][i].clear();
+                    bubbleLabel.setText("");
                 }
             }
         });
@@ -246,10 +251,13 @@ public class Main extends Application {
         });
 
         //Selection Tab Content
+        Label selectLabel = new Label();
+        selectLabel.setMinSize(150, 400);
+        selectLabel.setPadding(new Insets(0, 0, 0, 550));
         FlowPane selectionpane = new FlowPane();
         HBox selec = new HBox(selectionfield1, selectionfield2, selectionfield3, selectionfield4, selectionfield5, selectionfield6, selectionfield7, selectionfield8, selectionfield9, selectionfield10);
         HBox selectionbuttons = new HBox(selecbtn, selecbtn1, selecbtn2);
-        selectionpane.getChildren().addAll(selec, selectionbuttons);
+        selectionpane.getChildren().addAll(selec, selectionbuttons, selectLabel);
         selectionTab.setContent(selectionpane);
         selec.setPadding(new Insets(100, 0, 0, 0));
         selectionbuttons.setPadding(new Insets(50, 0, 0, 450));
@@ -261,8 +269,11 @@ public class Main extends Application {
                     String text = arrayFields[0][i].getText();
                     int myInt = Integer.parseInt(text);
                     unSorted[i] = myInt;
+                    
                 }
-                newSelectionSort.SelectionSrt(unSorted);
+                
+                String selecSortVisualization = SelectionSort.SelectionSrt(unSorted);
+                selectLabel.setText(selecSortVisualization);
             }
         });
 
@@ -272,6 +283,7 @@ public class Main extends Application {
                 arrayFields[0] = selec.getChildren().toArray(new TextField[0]);
                 for (int i = 0; i < 10; i++) {
                     arrayFields[0][i].clear();
+                    selectLabel.setText("");
                 }
             }
         });
@@ -288,10 +300,13 @@ public class Main extends Application {
         });
 
         //Insertion Tab Content
+        Label insertLabel = new Label();
+        insertLabel.setMinSize(150, 400);
+        insertLabel.setPadding(new Insets(0, 0, 0, 550));
         FlowPane insertpane = new FlowPane();
         HBox insert = new HBox(insf1, insf2, insf3, insf4, insf5, insf6, insf7, insf8, insf9, insf10);
         HBox insertbuttons = new HBox(insbtn, insbtn1, insbtn2);
-        insertpane.getChildren().addAll(insert, insertbuttons);
+        insertpane.getChildren().addAll(insert, insertbuttons, insertLabel);
         insert.setPadding(new Insets(100, 0, 0, 0));
         insertbuttons.setPadding(new Insets(50, 0, 0, 450));
         InsertionSort.setContent(insertpane);
@@ -304,7 +319,8 @@ public class Main extends Application {
                     int myInt = Integer.parseInt(text);
                     unSorted[i] = myInt;
                 }
-                newInsertionSort.InsertionSrt(unSorted);
+                String insertVisuals = newInsertionSort.InsertionSrt(unSorted);
+                insertLabel.setText(insertVisuals);
             }
         });
 
@@ -314,6 +330,7 @@ public class Main extends Application {
                 arrayFields[0] = insert.getChildren().toArray(new TextField[0]);
                 for (int i = 0; i < 10; i++) {
                     arrayFields[0][i].clear();
+                    insertLabel.setText("");
                 }
             }
         });
@@ -329,13 +346,21 @@ public class Main extends Application {
             }
         });
 
-        //mergesort content
+        //mergesort content 
+        Label mergeLabel = new Label();
+        Image image = new Image(new FileInputStream("Merge-sort-example-300px.gif"));
+        ImageView imageView = new ImageView(image);
+        imageView.setX(200);
+        imageView.setY(300);
+        imageView.setPreserveRatio(true);
+        mergeLabel.setMinSize(150, 400);
+        mergeLabel.setPadding(new Insets(0, 0, 0, 550));
         FlowPane mergepane = new FlowPane();
         HBox merge = new HBox(mgf1, mgf2, mgf3, mgf4, mgf5, mgf6, mgf7, mgf8, mgf9, mgf10);
         HBox mergebuttons = new HBox(mgfbtn, mgfbtn1, mgfbtn2);
         merge.setPadding(new Insets(100, 0, 0, 0));
         mergebuttons.setPadding(new Insets(50, 0, 0, 450));
-        mergepane.getChildren().addAll(merge, mergebuttons);
+        mergepane.getChildren().addAll(merge, mergebuttons, mergeLabel, imageView);
         mergeSort.setContent(mergepane);
 
          mgfbtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -346,9 +371,11 @@ public class Main extends Application {
                     int myInt = Integer.parseInt(text);
                     unSorted[i] = myInt;
                 }
-                newMergeSort.merge_srt(unSorted);
-
-                ArrayMethods.printArray(unSorted);
+                MergeSort.mergeSort(unSorted);
+                String mergevisual = MergeSort.mergeSort(unSorted);
+                mergeLabel.setText(mergevisual);
+               
+               
             }
         });
 
@@ -420,7 +447,7 @@ public class Main extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.setWidth(1350);
-        primaryStage.setHeight(600);
+        primaryStage.setHeight(800);
         primaryStage.setTitle("Sorting Program");
 
         primaryStage.show();

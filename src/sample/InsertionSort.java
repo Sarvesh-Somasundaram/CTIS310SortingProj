@@ -6,8 +6,10 @@ package sample;
  */
 public class InsertionSort {
 
-    public static int[] InsertionSrt(int[] input) {
+    public static String InsertionSrt(int[] input) {
+        String finalString = "";
         int temp;
+
         for (int i = 1; i < input.length; i++) {
             for (int j = i; j > 0; j--) {
                 if (input[j] < input[j - 1]) {
@@ -17,9 +19,11 @@ public class InsertionSort {
                 }
             }
             ArrayMethods.printArray(input);
+            String tempArray = ArrayMethods.arrayToString(input);
+            finalString = finalString + "Step " + (i+1) + ": " + tempArray + "\n\n";
         }
 
-        return input;
+        return finalString;
     }
 
 }

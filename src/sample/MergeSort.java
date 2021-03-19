@@ -1,80 +1,74 @@
 package sample;
 
 public class MergeSort {
-    private int [] array;
-    private int [] tempMergArr;
-    private int length;
-    
-    public  void merge_srt(int inputArr[]){
-        this.array = inputArr;
-        int j = 1;
-        for (int i : inputArr){
-            System.out.print(i);
-            if (j < inputArr.length)
-                System.out.print(", ");
-            else 
-                System.out.println();
-            j++;
+
+    public static String mergeSort(int[] array)
+    {
+
+        boolean is_sorted;
+        String finalString = "";
+        if(array == null)
+        {
+            return "empty";
         }
-        this.length = inputArr.length;
-        this.tempMergArr = new int[length];
-        doMergeSort(0, length-1);
-    }
-    
-    private void doMergeSort (int lowerIndex, int higherIndex){
-        if (lowerIndex < higherIndex){
-            int middle = lowerIndex + (higherIndex-lowerIndex)/2;
-            //the step below sorts the left side of the array
-            doMergeSort(lowerIndex, middle);
-            //the step below sorts the right side of the array
-            doMergeSort(middle+1, higherIndex);
-            mergeParts(lowerIndex, middle, higherIndex);
-        }
-    }//end of doMergeSort
-    
-    private void mergeParts(int lowerIndex, int middle, int higherIndex){
-        System.out.print("lowerIndex = " + lowerIndex +
-                         " middle = " + middle +
-                         " higherIndex = " + higherIndex);
-        
-        for (int i = lowerIndex; i <= higherIndex; i++){
-            tempMergArr[i] = array[i];
-        }
-        
-        int i = lowerIndex;
-        int j = middle + 1;
-        int k = lowerIndex;
-        
-        while (i <= middle && j <= higherIndex){
-            if (tempMergArr[i] <= tempMergArr[j]){
-                array[k] = tempMergArr[i];
+
+        if(array.length > 1)
+        {
+            int mid = array.length / 2;
+
+            // Split left part
+            int[] left = new int[mid];
+            for(int i = 0; i < mid; i++)
+            {
+                left[i] = array[i];
+            }
+
+            // Split right part
+            int[] right = new int[array.length - mid];
+            for(int i = mid; i < array.length; i++)
+            {
+                right[i - mid] = array[i];
+            }
+            mergeSort(left);
+            mergeSort(right);
+
+            int i = 0;
+            int j = 0;
+            int k = 0;
+
+            // Merge left and right arrays
+            while(i < left.length && j < right.length)
+            {
+                if(left[i] < right[j])
+                {
+                    array[k] = left[i];
+                    i++;
+                }
+                else
+                {
+                    array[k] = right[j];
+                    j++;
+                }
+                k++;
+            }
+            // Collect remaining elements
+            while(i < left.length)
+            {
+                array[k] = left[i];
                 i++;
+                k++;
             }
-            else {
-                array[k] = tempMergArr[j];
+            while(j < right.length)
+            {
+                array[k] = right[j];
                 j++;
+                k++;
             }
-            k++;
+            ArrayMethods.printArray(array);
+            String tempArray = ArrayMethods.arrayToString(array);
+            finalString = finalString + "Step " + (i+1) + ": " + tempArray + "\n\n";
         }
-        
-        while (i <= middle){
-            array[k] = tempMergArr[i];
-            k++;
-            i++;
-        }
-        
-        int len = 1;
-        for (int x:tempMergArr){
-            System.out.print(x);
-            if (len < tempMergArr.length)
-                System.out.print(", ");
-            else
-                System.out.println();
-            len++;
-        }
+        return finalString;
     }
 
-   
-   
-    
 }
